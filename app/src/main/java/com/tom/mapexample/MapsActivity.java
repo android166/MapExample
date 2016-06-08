@@ -113,7 +113,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         .snippet("abcdef")
         );
 //        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(ONEOONE, 17));
+//        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(ONEOONE, 17));
     }
 
     @Override
@@ -128,7 +128,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
-        
+        //noinspection MissingPermission
+        Location location =
+            LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
+                new LatLng(location.getLatitude(), location.getLongitude()), 15));
     }
 
     @Override
